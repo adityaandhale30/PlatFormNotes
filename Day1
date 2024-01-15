@@ -1,0 +1,111 @@
+// Code 1
+// Brute Force Approch Added break condition
+
+class Solution {
+    public int singleNumber(int[] nums) {
+        
+        int len = nums.length;
+        for(int i=0; i<len; i++) {
+
+            int count = 0;
+            for(int j=0; j<len; j++) {
+
+    
+                if(nums[i]==nums[j]){
+                    count++;
+
+                    if(count==2)
+                        break;
+                }
+            }
+
+            if(count==1)
+                return nums[i];
+        }
+
+        return -1;
+    }
+}
+
+// Code 2 
+// Used extra Space O(n) 
+// TC O(n)
+
+lass Solution {
+    public static int firstRepeated(int[] arr, int n) {
+        
+        int max = Integer.MIN_VALUE;
+
+        for(int i=0; i<n; i++) {
+            
+            if(max<arr[i])
+                 max = arr[i];
+        }
+        
+        int[] temp = new int[max+1];
+        
+        for(int i=0; i<n; i++) {
+            
+            temp[arr[i]]++;
+        }
+       // max+=1;
+       /* int st = 0;
+        for(int i=0; i<max; i++) {
+            
+            if(temp[i]>1){
+                st =i;
+                break;
+            }
+        }*/
+        
+        for(int i=0; i<n; i++) {
+            
+            if(temp[arr[i]]>1)
+                return i+1;
+        }
+        
+        return -1;
+        // Your code here
+    }
+}
+
+// Code 3
+// Used extra Space O(n) extra Array Counting Sort 
+// TC O(n)
+
+
+class Solution {
+    boolean hasArrayTwoCandidates(int arr[], int n, int x) {
+        
+        
+        int max = Integer.MIN_VALUE;
+        
+        for(int i=0; i<n; i++) {
+            
+            if(arr[i]>max){
+                max = arr[i];
+            }
+        }
+        
+        int [] temp = new int [max+1];
+        
+        for(int i=0; i<n; i++) {
+            
+            temp[arr[i]]++;
+        }
+        
+        //max+=1;
+        
+        for(int i=0; i<n; i++) {
+            
+            int dif = x-arr[i];
+            if(dif<0 || dif>max) 
+                continue;
+            
+            if(temp[dif]>0 && i!=dif-1)
+                return true;
+        }
+        
+        return false;
+    }
+}
